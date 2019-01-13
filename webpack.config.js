@@ -155,7 +155,7 @@ const config = {
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify(NODE_ENV)},
+      'process.env': { NODE_ENV: JSON.stringify(NODE_ENV) },
       __DEV__,
       __TEST__,
       __PROD__,

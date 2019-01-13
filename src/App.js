@@ -1,13 +1,13 @@
 import React from 'react'
-import {ApolloProvider} from 'react-apollo'
-import Page from './Page'
-import client from './apollo'
-import styles from 'App.scss'
+import { ApolloProvider } from 'react-apollo'
+import Page from './pages/Page'
+import client from './config/apollo'
+import styles from './App.scss'
 
 const App = () =>
   <div className={styles.main}>
-    <div className={styles.header}>
-      VESTBERRY TEST ASSIGNMENT
+    <div className={styles.pageHeader}>
+      Vestberry test assignment
     </div>
     <div className={styles.content}>
       <ApolloProvider client={client}>

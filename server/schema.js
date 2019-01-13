@@ -26,6 +26,10 @@ const CompanyType = new GraphQLObjectType({
         type: GraphQLString,
         resolve: company => company.sector,
       },
+      color: {
+        type: GraphQLString,
+        resolve: company => company.color,
+      },
       investmentSize: {
         type: GraphQLInt,
         resolve: company => company.investmentSize,
@@ -36,30 +40,37 @@ const CompanyType = new GraphQLObjectType({
 
 const sectors = ['Fintech', 'IOT', 'Roboadvisory', 'Insuretech']
 const stages = ['Idea', 'Prototype', 'Seed', 'Series A', 'Series B', 'Series C']
+const color = ''
 const companies = [...Array(Math.round(Math.random() * 3 + 1)).keys()]
   .map(() => ({
     name: casual.company_name,
     stage: casual.random_element(stages),
     sector: casual.random_element(sectors),
-    investmentSize: Math.round(Math.random() * 10000000)
+    investmentSize: Math.round(Math.random() * 10000000),
+    color: casual.rgb_hex
   }))
 
 const companyQuery = {
   type: GraphQLList(CompanyType),
-  resolve: (root, args, {session, ...data}, d) =>
+  resolve: (root, args, { session, ...data }, d) =>
     companies
 }
 
 const sectorQuery = {
   type: GraphQLList(GraphQLString),
-  resolve: (root, args, {session, ...data}, d) =>
+  resolve: (root, args, { session, ...data }, d) =>
     sectors
 }
 
 const stageQuery = {
   type: GraphQLList(GraphQLString),
-  resolve: (root, args, {session, ...data}, d) =>
+  resolve: (root, args, { session, ...data }, d) =>
     stages
+}
+const colorQuery = {
+  type: GraphQLList(GraphQLString),
+  resolve: (root, args, { session, ...data }, d) =>
+    color
 }
 
 const query = new GraphQLObjectType({
@@ -68,7 +79,8 @@ const query = new GraphQLObjectType({
   fields: {
     company: companyQuery,
     sector: sectorQuery,
-    stage: stageQuery
+    stage: stageQuery,
+    color: colorQuery,
   }
 })
 
@@ -107,6 +119,10 @@ const mutation = new GraphQLObjectType({
         sector: {
           type: GraphQLString,
           name: 'sector',
+        },
+        color: {
+          type: GraphQLString,
+          name: 'color',
         },
         investmentSize: {
           type: GraphQLInt,
